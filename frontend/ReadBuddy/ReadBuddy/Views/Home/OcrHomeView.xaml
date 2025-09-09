@@ -1,0 +1,74 @@
+﻿<!-- ReadBuddy\Views\Home\OcrHomeView.xaml -->
+<UserControl x:Class="ReadBuddy.Views.Home.OcrHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:ReadBuddy.Views.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 🔘 Top Bar with Back and Summary Buttons -->
+        <DockPanel Margin="10" Grid.Row="0" LastChildFill="False">
+            <!-- Summary Button -->
+            <Button DockPanel.Dock="left"
+                    Style="{StaticResource ButtonStyle}"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"
+                    Command="{Binding ShowSummaryCommand}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding SummeryButtonText}"
+                               Margin="8,0,0,0"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold" FontSize="20"/>
+                    <md:PackIcon Kind="Creation"
+                                 Width="24"
+                                 Margin="5,0,8,0"
+                                 Height="24"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"/>
+
+                </StackPanel>
+            </Button>
+
+            <!-- Category Editing -->
+            <controls:EditCategoryBar DockPanel.Dock="Left"
+                                      Margin="0,0,10,0"
+                                      CategoryText="{Binding CurrentOcr.Category}"
+                                      EditCommand="{Binding EditCategoryCommand}"/>
+
+            <!-- Googly Eyes watching the content -->
+            <StackPanel Orientation="Horizontal" 
+                        Margin="20,0,20,0" 
+                        VerticalAlignment="Center" 
+                        DockPanel.Dock="Left">
+                <controls:GooglyEyeControl Margin="0,0,50,0" />
+                <controls:GooglyEyeControl />
+            </StackPanel>
+
+            <!-- Back Button -->
+            <Button Style="{StaticResource BackButtonStyle}"
+                    Command="{Binding BackCommand}"
+                    ToolTip="Back"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right">
+                <md:PackIcon Kind="ArrowRight"
+                             Width="24"
+                             Height="24"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
+            </Button>
+        </DockPanel>
+
+        <!-- 🖼️ OCR Result Viewer -->
+        <controls:OcrImageControl Margin="5,0,0,0" x:Name="OcrControl"
+                                  Grid.Row="1" />
+    </Grid>
+</UserControl>

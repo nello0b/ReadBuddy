@@ -1,0 +1,171 @@
+﻿<!-- ReadBuddy\Views\Quiz\QuizReviewView.xaml -->
+<UserControl x:Class="ReadBuddy.Views.QuizReviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:ReadBuddy.Views.Controls"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReadBuddy;component/Themes/QuizReviewViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Back Button -->
+            <RowDefinition Height="Auto"/>
+            <!-- Summary Row -->
+            <RowDefinition Height="*"/>
+            <!-- Review List -->
+        </Grid.RowDefinitions>
+
+        <!-- Googly Eyes positioned on the left side -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,0">
+            <controls:GooglyEyeControl Margin="0,0,50,0" />
+            <controls:GooglyEyeControl />
+        </StackPanel>
+
+        <!-- Back Button -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,20,0">
+            <Button Style="{StaticResource BackButtonStyle}"
+                    Command="{Binding BackToHomeCommand}"
+                    ToolTip="Back">
+                <md:PackIcon Kind="ArrowRight"
+                             Width="24"
+                             Height="24"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+
+        <!-- Summary Row -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10" >
+            <Border Background="LightGreen" CornerRadius="6" Padding="10" Margin="0,0,5,0">
+                <TextBlock Text="{Binding CorrectCount, StringFormat=Correct: {0}}" FontWeight="Bold"/>
+            </Border>
+            <Border Background="LightCoral" CornerRadius="6" Padding="10" Margin="0,0,5,0">
+                <TextBlock Text="{Binding WrongCount, StringFormat=Wrong: {0}}" FontWeight="Bold"/>
+            </Border>
+            <Border Background="LightGray" CornerRadius="6" Padding="10">
+                <TextBlock Text="{Binding UnansweredCount, StringFormat=Unanswered: {0}}" FontWeight="Bold"/>
+            </Border>
+        </StackPanel>
+
+        <!-- Scrollable Question-Review List -->
+        <Border Grid.Row="2" CornerRadius="10,0,0,0" BorderBrush="{StaticResource PrimaryBrush}"
+                Background="{StaticResource AccentBrush}" Padding="10" Margin="20,0,0,0" BorderThickness="5,5,0,0"> 
+        <ScrollViewer 
+              VerticalScrollBarVisibility="Auto">
+            <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar"
+               BasedOn="{StaticResource ModernVerticalScrollBar}"/>
+                </ScrollViewer.Resources>
+
+            <!-- ItemsControl inside ScrollViewer (no built-in selection) -->
+            <ItemsControl x:Name="ReviewItemsControl"
+                  ItemsSource="{Binding Questions}"
+                  Margin="0,0,5,0"
+                  HorizontalContentAlignment="Stretch">
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border Padding="6"
+                        Margin="0,4"
+                        CornerRadius="10" BorderThickness="5" BorderBrush="{StaticResource PrimaryBrush}"
+                        HorizontalAlignment="Stretch" Background="{StaticResource ExtraLightBrush}"
+                        >
+
+                            <StackPanel>
+
+                                <!-- Status row -->
+                                <DockPanel Margin="0,0,0,4" LastChildFill="False">
+                                    <TextBlock DockPanel.Dock="Left"
+                                       Text="{Binding Number,
+                                              StringFormat=Question {0}  }"
+                                       FontWeight="Bold"
+                                       FontSize="20"/>
+                                    <md:PackIcon x:Name="StatusIcon"
+                                         DockPanel.Dock="Right"
+                                         Kind="HelpCircle"
+                                         Width="20" Height="20"
+                                         Margin="0,0,6,0"
+                                         Foreground="Gray"/>
+                                    <TextBlock x:Name="StatusText"
+                                       DockPanel.Dock="Right"
+                                       Text="Unanswered"
+                                       FontWeight="Bold"
+                                       FontSize="16"/>
+                                </DockPanel>
+
+                                <!-- Question text -->
+                                <TextBlock x:Name="QuestionContentText"
+                                   Text="{Binding QuestionContent}"
+                                   FontWeight="SemiBold"
+                                   FontSize="14"
+                                   TextWrapping="Wrap"/>
+
+                                <!-- Correct answer row -->
+                                <StackPanel x:Name="CorrectPanel"
+                                    Orientation="Vertical"
+                                    Margin="0,4,0,0">
+                                    <TextBlock TextWrapping="Wrap">
+                                <Run Text="Correct Answer: "
+                                     FontWeight="Bold"/>
+                                <Run x:Name="CorrectAnswerText"
+                                     Text="{Binding CorrectAnswerContent}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <!-- User answer row -->
+                                <StackPanel x:Name="UserPanel"
+                                    Orientation="Vertical">
+                                    <TextBlock TextWrapping="Wrap">
+                                <Run Text="Your Answer: "
+                                     FontWeight="Bold"/>
+                                <Run x:Name="UserAnswerText"
+                                     Text="{Binding SelectedAnswerContent}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Border>
+
+                        <!-- ── TRIGGERS ─────────────────────────── -->
+                        <DataTemplate.Triggers>
+                            <!-- Wrong -->
+                            <DataTrigger Binding="{Binding IsAnswered}" Value="True">
+                                <Setter TargetName="StatusText" Property="Text" Value="Wrong"/>
+                                <Setter TargetName="StatusIcon" Property="Kind" Value="CloseCircle"/>
+                                <Setter TargetName="StatusIcon" Property="Foreground" Value="#F44336"/>
+                            </DataTrigger>
+
+                            <!-- Correct -->
+                            <DataTrigger Binding="{Binding IsCorrect}" Value="True">
+                                <Setter TargetName="StatusText" Property="Text" Value="Correct"/>
+                                <Setter TargetName="StatusIcon" Property="Kind" Value="CheckCircle"/>
+                                <Setter TargetName="StatusIcon" Property="Foreground" Value="#4CAF50"/>
+                                <Setter TargetName="CorrectPanel" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+
+                            <!-- Unanswered -->
+                            <DataTrigger Binding="{Binding IsAnswered}" Value="False">
+                                <Setter TargetName="StatusText" Property="Text" Value="Unanswered"/>
+                                <Setter TargetName="StatusIcon" Property="Kind" Value="HelpCircle"/>
+                                <Setter TargetName="StatusIcon" Property="Foreground" Value="Gray"/>
+                                <Setter TargetName="UserPanel" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        </Border>
+
+    </Grid>
+</UserControl>

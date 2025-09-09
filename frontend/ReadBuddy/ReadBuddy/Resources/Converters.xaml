@@ -1,0 +1,17 @@
+﻿<!-- ReadBuddy/Resources/Converters.xaml -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:ReadBuddy.Converters">
+
+    <conv:BoolToBrushConverter x:Key="BoolToBrushConverter"
+                               TrueBrush="{StaticResource PrimaryBrush}"
+                               FalseBrush="Transparent" />
+    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <conv:BoolToAngleConverter x:Key="BoolToAngleConverter"
+                           TrueAngle="0"
+                           FalseAngle="180" />
+    <conv:InverseVisibilityConverter x:Key="InverseVisibilityConverter"/>
+    <conv:IndexToLetterConverter x:Key="IndexToLetterConverter" />
+    <conv:IndexToNumberConverter x:Key="IndexToNumberConverter" />
+    <conv:IsNewToVisibilityConverter x:Key="IsNewToVisibilityConverter" />
+</ResourceDictionary>

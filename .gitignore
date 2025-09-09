@@ -1,0 +1,110 @@
+################################################################################
+# Backend (Python - FastAPI)
+################################################################################
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/*.py[cod]
+*.sqlite3
+*.db
+*.log
+*.pid
+*.tmp
+*.bak
+
+# Virtual environments
+venv/
+.venv/
+env/
+backend/venv/
+test_client/venv/
+
+# For testing [Need to be removed after testing]
+ocr-ex/labenv/
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# static files
+backend/static/image/
+backend/static/audio/
+
+# test files
+temp/
+
+# set up secrets
+backend/secret_credential.py
+
+################################################################################
+# Frontend (C# - WPF / Visual Studio)
+################################################################################
+# User-specific files
+*.user
+*.suo
+*.cache
+*.dbmdl
+
+# Visual Studio
+/frontend/ReadBuddy/.vs/
+**/.vs/
+*.csproj.user
+
+# Build outputs
+/frontend/ReadBuddy/ReadBuddy/bin/
+**/bin/
+**/obj/
+*.exe
+*.dll
+*.pdb
+
+# NuGet
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.csproj.user
+
+################################################################################
+# Test Client (Python)
+################################################################################
+
+test_client/downloads/
+
+################################################################################
+# Editor/IDE settings
+################################################################################
+.vscode/
+.idea/
+*.sln.docstates
+
+################################################################################
+# OS-specific
+################################################################################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+################################################################################
+# Compressed files
+################################################################################
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+################################################################################
+# WebView2 Cache (Edge Runtime)
+################################################################################
+**/ReadBuddy.exe.WebView2/
+
+################################################################################
+# Media files
+################################################################################
+*.mp3
+

@@ -1,0 +1,51 @@
+﻿<!-- ReadBuddy\ReadBuddy.csproj -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>ReadBuddy</AssemblyName>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Icon\icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Views\NewFolder1\**" />
+		<Compile Remove="Views\NewFolder\**" />
+		<EmbeddedResource Remove="Views\NewFolder1\**" />
+		<EmbeddedResource Remove="Views\NewFolder\**" />
+		<None Remove="Views\NewFolder1\**" />
+		<None Remove="Views\NewFolder\**" />
+		<Page Remove="Views\NewFolder1\**" />
+		<Page Remove="Views\NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Icon\icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Icon\icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Auth0.OidcClient.WPF" Version="4.3.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Duende.IdentityModel.OidcClient" Version="6.0.1" />
+		<PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+		<PackageReference Include="Mvvm.Navigation.Wpf" Version="1.5.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Icon\icon.png">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+</Project>

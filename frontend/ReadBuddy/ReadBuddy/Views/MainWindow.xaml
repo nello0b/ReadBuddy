@@ -1,0 +1,107 @@
+﻿<!-- ReadBuddy\Views\MainWindow.xaml -->
+<Window x:Class="ReadBuddy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReadBuddy"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:conv="clr-namespace:ReadBuddy.Converters"
+        xmlns:controls="clr-namespace:ReadBuddy.Views.Controls"
+        mc:Ignorable="d"
+        Icon="pack://application:,,,/ReadBuddy;component/Icon/icon.png"
+        ResizeMode="CanResize"
+        Title="ReadBuddy" Height="600" Width="900">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReadBuddy;component/Themes/NavigationStyles.xaml" />
+                <ResourceDictionary Source="/ReadBuddy;component/Resources/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <controls:TitleBar Grid.Row="0"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="SidebarColumn" Width="200"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+        BorderThickness="0,0,2,0"
+        BorderBrush="{StaticResource PrimaryBrush}">
+                <Grid Background="{StaticResource AccentBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" >
+                        <Button Style="{StaticResource CollapseToggleButtonStyle}"
+        Command="{Binding ToggleSidebarCommand}"
+        ToolTip="Toggle sidebar">
+                            <md:PackIcon Kind="ChevronDoubleLeft"
+                 Width="20"
+                 Height="20"
+                 RenderTransformOrigin="0.5,0.5">
+                                <md:PackIcon.RenderTransform>
+                                    <RotateTransform Angle="{Binding IsSidebarExpanded, Converter={StaticResource BoolToAngleConverter}}" />
+                                </md:PackIcon.RenderTransform>
+                            </md:PackIcon>
+                        </Button>
+                        <ItemsControl ItemsSource="{Binding NavigationItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource NavButtonStyle}"
+                    Command="{Binding Command}"
+                    ToolTip="{Binding Label}"  
+                                Margin="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <md:PackIcon Kind="{Binding Icon}" Width="20" Height="20" Margin="5,0,8,0"/>
+                                            <TextBlock Text="{Binding Label}"
+                               VerticalAlignment="Center"
+                               Visibility="{Binding DataContext.IsSidebarExpanded,
+                                            RelativeSource={RelativeSource AncestorType=Window},
+                                            Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"/>
+                    <Button Grid.Row="2"
+        Style="{StaticResource LogoutButtonStyle}"
+        Command="{Binding LogoutCommand}"
+        Margin="0 5">
+                        <StackPanel Orientation="Horizontal">
+                            <md:PackIcon Kind="LogoutVariant" Width="20" Height="20" Margin="8,0,8,0"/>
+                            <TextBlock Text="Log out"
+                    ToolTip="Log out"
+           VerticalAlignment="Center"
+           Visibility="{Binding IsSidebarExpanded,
+                        Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1" Background="{StaticResource BackgroundBrush}">
+                <ContentControl  Content="{Binding CurrentView}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

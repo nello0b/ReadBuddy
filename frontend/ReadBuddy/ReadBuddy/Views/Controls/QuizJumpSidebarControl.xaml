@@ -1,0 +1,44 @@
+﻿<!--  ReadBuddy\Views\Controls\QuizJumpSidebarControl.xaml -->
+<UserControl x:Class="ReadBuddy.Views.Controls.QuizJumpSidebarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+
+    <!-- pull in the sidebar-specific theme  -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReadBuddy;component/Themes/QuizJumpSidebarStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!--  All XAML below is verbatim what you had inside the <Border> …  -->
+    <Border Style="{StaticResource JumpSidebarShell}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--  Title  -->
+            <TextBlock Grid.Row="0"
+                       Style="{StaticResource JumpSidebarTitle}" 
+                       Text="{Binding HeaderText, ElementName=Root}"/>
+
+            <!--  Scrollable question list  -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar"
+                           BasedOn="{StaticResource ModernVerticalScrollBar}"/>
+                </ScrollViewer.Resources>
+
+                <ListView ItemsSource="{Binding QuestionJumpList}"
+                          SelectedIndex="{Binding CurrentQuestionIndex, Mode=TwoWay}"
+                          Style="{StaticResource JumpSidebarList}">
+                    <!-- Item template and container style live in the theme file -->
+                </ListView>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

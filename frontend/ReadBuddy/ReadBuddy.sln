@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadBuddy", "ReadBuddy\ReadBuddy.csproj", "{06C8C86D-B952-4BC3-8649-3D4E9B788F43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06C8C86D-B952-4BC3-8649-3D4E9B788F43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C8C86D-B952-4BC3-8649-3D4E9B788F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C8C86D-B952-4BC3-8649-3D4E9B788F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C8C86D-B952-4BC3-8649-3D4E9B788F43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8BA6A20E-12F0-4737-ADB7-A31746D71B4D}
+	EndGlobalSection
+EndGlobal

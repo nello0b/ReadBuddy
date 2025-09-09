@@ -1,0 +1,27 @@
+fastapi
+uvicorn
+python-jose
+pymongo
+bcrypt==4.0.1
+requests
+python-multipart
+aiohttp>=3.8.5
+aiofiles
+openai
+tiktoken
+Pillow>=9.0.0
+
+
+# Azure Cognitive Services
+azure-ai-documentintelligence==1.0.0
+azure-cognitiveservices-speech
+azure-ai-textanalytics==5.2.0
+azure-identity>=1.12.0
+azure-keyvault-secrets>=4.6.0
+
+# Optional: if you're using .env files locally
+python-dotenv
+
+# For Task Queue
+celery
+redis

@@ -1,0 +1,105 @@
+﻿<!-- ReadBuddy\Views\Quiz\QuizPreparationView.xaml -->
+<UserControl x:Class="ReadBuddy.Views.QuizPreparationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:ReadBuddy.Views.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Include styles and resources specific to this control -->
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- Main area -->
+            <ColumnDefinition Width="10"/>
+            <!-- Spacer -->
+            <ColumnDefinition Width="250"/>
+            <!-- Sidebar -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 🗺 Title -->
+        <Viewbox Grid.Row="0" Grid.Column="0" Stretch="Uniform" MaxHeight="200">
+            <TextBlock Text="Quiz Preparation"
+                       FontSize="40"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="20,20,0,10"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Viewbox>
+
+        <!-- 🎯 Configuration Panel -->
+        <StackPanel Grid.Row="1" Grid.Column="0"
+                    Width="300"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    Margin="10">
+
+            <TextBlock Text="Select Topic:" FontWeight="Bold" Margin="0,0,0,4" FontSize="20"/>
+            <ComboBox ItemsSource="{Binding AvailableTopics}"
+                      SelectedItem="{Binding SelectedTopic}"
+                      IsEnabled="{Binding HasAvailableTopics}"
+                      Style="{StaticResource ComboBoxFlatStyle}"/>
+
+            <TextBlock Text="Select Language:" FontWeight="Bold" Margin="0,0,0,4" FontSize="20"/>
+            <ComboBox ItemsSource="{Binding AvailableLanguages}"
+              SelectedItem="{Binding SelectedLanguage}"
+              Style="{StaticResource ComboBoxFlatStyle}"/>
+
+            <TextBlock Text="Number of Questions:" FontWeight="Bold" Margin="0,10,0,4" FontSize="20"/>
+            <TextBox Text="{Binding NumberOfQuestions}" PreviewTextInput="NumberBox_PreviewTextInput" MaxLength="2" 
+                     Style="{StaticResource TextBoxStyle}" TextAlignment="Center"/>
+
+            <CheckBox FontWeight="Bold" Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding IsAdvancedOptionsEnabled}"
+                      Margin="0,15,0,0"
+                      VerticalAlignment="Center">
+                <CheckBox.Content>
+                    <TextBlock Text="Use the Question Evaluation System (ensures higher quality questions)"
+                               TextWrapping="Wrap"
+                               MaxWidth="270" />
+                </CheckBox.Content>
+            </CheckBox>
+
+            <Button Content="Create Quiz"
+                    Command="{Binding CreateQuizCommand}"
+                    Margin="0,20,0,0"
+                    Padding="10"
+                    Style="{StaticResource ButtonStyle}"
+                    
+            />
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <controls:GooglyEyeControl Margin="0,0,50,0" />
+            <controls:GooglyEyeControl />
+        </StackPanel>
+
+        <!-- 📜 Quiz History Sidebar -->
+        <controls:QuizHistorySidebarControl Grid.Column="2" Grid.Row="1"
+                                            ItemsSource="{Binding CombinedItems}"
+                                            ShowDeleteButton="True" />
+
+
+    </Grid>
+</UserControl>

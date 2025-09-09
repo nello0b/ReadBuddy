@@ -1,0 +1,53 @@
+﻿<!-- ReadBuddy\Views\Controls\TitleBar.xaml -->
+<UserControl x:Class="ReadBuddy.Views.Controls.TitleBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ReadBuddy.Views.Controls"
+             Height="35"
+             HorizontalAlignment="Stretch"
+             MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReadBuddy;component/Themes/TitleBarStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Style="{StaticResource WindowTitleBarStyle}">
+        <DockPanel LastChildFill="False">
+
+            <!-- App Icon -->
+            <Image Source="pack://application:,,,/Icon/icon.png"
+           Width="20" Height="20"
+           Margin="10,0"
+           VerticalAlignment="Center"
+           DockPanel.Dock="Left"/>
+
+            <!-- Title -->
+            <TextBlock Text="ReadBuddy"
+               Foreground="Black"
+               FontWeight="Bold"
+               FontSize="14"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"
+               DockPanel.Dock="Left"/>
+
+            <!-- Window Control Buttons (Right-aligned, declared first) -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <Button Style="{StaticResource MinimizeButtonStyle}" Click="Minimize_Click">
+                    <md:PackIcon Kind="WindowMinimize" Width="16" Height="16"/>
+                </Button>
+                <Button Style="{StaticResource MinimizeButtonStyle}" Click="MaximizeRestore_Click">
+                    <md:PackIcon Kind="WindowMaximize" Width="16" Height="16"/>
+                </Button>
+                <Button Style="{StaticResource CloseButtonStyle}" Click="Close_Click">
+                    <md:PackIcon Kind="WindowClose" Width="16" Height="16"/>
+                </Button>
+            </StackPanel>
+
+        </DockPanel>
+
+    </Border>
+</UserControl>

@@ -1,0 +1,19 @@
+<!-- ReadBuddy\Views\Controls\GooglyEyeControl.xaml -->
+<UserControl x:Class="ReadBuddy.Views.Controls.GooglyEyeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="{Binding EyeSize, RelativeSource={RelativeSource Self}}" 
+             Height="{Binding EyeSize, RelativeSource={RelativeSource Self}}" 
+             IsHitTestVisible="False">
+    <Canvas x:Name="Root" 
+            Width="{Binding EyeSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+            Height="{Binding EyeSize, RelativeSource={RelativeSource AncestorType=UserControl}}">
+        <Ellipse Width="{Binding EyeSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                 Height="{Binding EyeSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                 Fill="White" Stroke="Black" StrokeThickness="2"/>
+        <Ellipse x:Name="PupilEllipse" 
+                 Width="{Binding PupilSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                 Height="{Binding PupilSize, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                 Fill="black" />
+    </Canvas>
+</UserControl>

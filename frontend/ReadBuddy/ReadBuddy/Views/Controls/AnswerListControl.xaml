@@ -1,0 +1,60 @@
+﻿<!-- ReadBuddy\Views\Controls\AnswerListControl.xaml -->
+<UserControl x:Class="ReadBuddy.Views.Controls.AnswerListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="RootControl"
+             xmlns:local="clr-namespace:ReadBuddy.Views.Controls"
+>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ReadBuddy;component/Themes/AnswerListStyles.xaml"/>
+                <ResourceDictionary Source="/ReadBuddy;component/Resources/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Scrollable container for answers -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer.Resources>
+            <Style TargetType="ScrollBar" BasedOn="{StaticResource ModernVerticalScrollBar}" />
+        </ScrollViewer.Resources>
+
+        <local:AnswerListBox x:Name="AnswerListBox"
+         AlternationCount="26"
+         ItemsSource="{Binding Answers, ElementName=RootControl}"
+         SelectedItem="{Binding SelectedAnswer, ElementName=RootControl, Mode=TwoWay}"
+         ItemContainerStyle="{StaticResource AnswerListBoxItemStyle}"
+         Style="{StaticResource AnswerListBoxStyle}"
+         BorderThickness="0"
+         SelectionMode="Single"
+         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  HorizontalContentAlignment="Stretch">
+
+            <local:AnswerListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="HighlightBorder">
+                        <Border Padding="5" Margin="0,4" CornerRadius="6" HorizontalAlignment="Stretch">
+                            <TextBlock FontSize="12"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="None"
+                                       HorizontalAlignment="Stretch">
+                                <!-- Number prefix -->
+                                <Run
+                                     Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}, Mode=OneWay, Converter={StaticResource IndexToNumberConverter}}" /> 
+                                <!-- A space between letter and answer -->
+                                <Run Text=" " />
+
+                                <!-- The answer content -->
+                                <Run Text="{Binding Content}" />
+                            </TextBlock>
+                        </Border>
+                    </Border>
+                </DataTemplate>
+            </local:AnswerListBox.ItemTemplate>
+        </local:AnswerListBox>
+
+    </ScrollViewer>
+</UserControl>

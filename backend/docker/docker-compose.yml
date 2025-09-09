@@ -1,0 +1,54 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=readbuddy
+
+  backend:
+    build: 
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - mongodb
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - RUNNING_IN_DOCKER=1
+    volumes:
+      - ../static:/app/static
+      - ../temp:/app/temp
+    command: python run.py
+
+  celery-worker:
+    build: 
+      context: ..
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - redis
+      - backend
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - C_FORCE_ROOT=1
+      - RUNNING_IN_DOCKER=1
+    volumes:
+      - ../static:/app/static
+      - ../temp:/app/temp
+    command: python -m celery -A celery_app.celery_app worker --loglevel=info --pool=solo
+
+volumes:
+  redis_data:
+  mongodb_data:

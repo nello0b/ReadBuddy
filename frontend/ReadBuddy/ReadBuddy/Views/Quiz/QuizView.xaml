@@ -1,0 +1,157 @@
+﻿<!-- ReadBuddy\Views\Quiz\QuizView.xaml -->
+<UserControl x:Class="ReadBuddy.Views.QuizView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ReadBuddy.Views.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Main layout grid with two columns: quiz area and sidebar -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Row 0: Back button -->
+            <RowDefinition Height="Auto"/>
+            <!-- Row 1:  -->
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="220" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Back button row -->
+        <DockPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0,5,20,5" LastChildFill="False">
+            <Button Style="{StaticResource BackButtonStyle}"
+                    Command="{Binding BackToHomeCommand}"
+                    ToolTip="Back"
+                    DockPanel.Dock="Right">
+                <md:PackIcon Kind="ArrowRight"
+                             Width="24"
+                             Height="24"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
+            </Button>
+        </DockPanel>
+
+        <!-- Googly Eyes positioned on the left side -->
+        <StackPanel Grid.Column="0" Grid.Row="0" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"
+                    Margin="20,5,0,5">
+            <controls:GooglyEyeControl Margin="0,0,50,0" />
+            <controls:GooglyEyeControl />
+        </StackPanel>
+
+        <!-- Quiz content area -->
+        <Grid Grid.Column="0" Grid.Row="1"  Margin="20">
+            <Grid.RowDefinitions>
+                <!-- Row 0: Back button -->
+                <RowDefinition Height="Auto"/>
+                <!-- Row 1: Progress and play/stop controls -->
+                <RowDefinition Height="auto"/>
+                <!-- Row 2: Question content and submit button -->
+                <RowDefinition Height="auto"/>
+                <!-- Row 3: List of possible answers -->
+                <RowDefinition Height="*" />
+                <!-- Row 4: Navigation buttons (previous/next) -->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+
+            <!-- Progress and play/stop controls row -->
+            <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="0,0,0,10">
+                <TextBlock Text="{Binding ProgressText}"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
+                <!-- Custom play/stop control for audio or narration -->
+                <controls:PlayStopControl
+                    PlayCommand="{Binding PlayPauseCommand}"
+                    StopCommand="{Binding StopCommand}"
+                    PlayIcon="{Binding PlayIcon}"
+                    StopIcon="Stop"/>
+            </StackPanel>
+
+            <!-- Question content and submit button row -->
+            <Grid Grid.Row="2" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+        x:Name="QuestionTextBlock"
+        Grid.Column="0"
+        Text="{Binding CurrentQuestion.Content}"
+        TextWrapping="Wrap"
+        FontSize="22"
+        VerticalAlignment="Center"
+        Margin="0,0,10,0" />
+
+                <Button
+        Grid.Column="1"
+        Content="Submit Quiz"
+        Command="{Binding SubmitQuizCommand}"
+        Margin="0,0,0,10"
+        Style="{StaticResource ButtonStyle}" />
+            </Grid>
+
+
+            <!-- List of possible answers for the current question -->
+            <controls:AnswerListControl x:Name="AnswersControl" Grid.Row="3"
+                            Answers="{Binding CurrentQuestion.Answers}" VerticalAlignment="Top"
+                            SelectedAnswer="{Binding SelectedAnswer, Mode=TwoWay}" />
+
+            <!-- Navigation buttons for previous/next question -->
+            <StackPanel Grid.Row="4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0">
+                <Button
+                        Margin="0,0,10,0"
+                        Command="{Binding PrevCommand}"
+                        Style="{StaticResource ButtonStyle}">
+                    <md:PackIcon Kind="ChevronLeft"
+                 Width="40"
+                 Height="40"
+                 RenderTransformOrigin="0.5,0.5"/>
+                </Button>
+                <Button
+                        Margin="0,0,10,0"
+                        Command="{Binding NextCommand}"
+                        Style="{StaticResource ButtonStyle}">
+                    <md:PackIcon Kind="ChevronRight"
+                 Width="40"
+                 Height="40"
+                 RenderTransformOrigin="0.5,0.5"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Sidebar: jump to question list -->
+        <controls:QuizJumpSidebarControl Grid.Column="1"
+                                 Grid.Row="1"
+                                 HeaderText="Jump To Question"
+                                 DataContext="{Binding}"/>
+
+        <!-- Loading overlay -->
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="2"
+                Background="#80000000"
+                Visibility="{Binding IsAudioLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ProgressBar Style="{StaticResource LoadingProgressBarStyle}"/>
+                <TextBlock Text="Loading audio..." Style="{StaticResource LoadingTextStyle}"/>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>
