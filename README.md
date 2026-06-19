@@ -13,6 +13,28 @@ An AI-powered reading assistant designed for users with ADHD, dyslexia, and othe
 - **🌐 Multi-language Support**: Support for multiple languages and text analysis
 - **♿ Accessibility Focused**: Designed specifically for users with learning disabilities
 
+## 📸 Application Screenshots
+
+### Home Screen
+Upload or capture text from any source. ReadBuddy extracts text using OCR and stores previous scans for quick access.
+
+![Home Screen](images/home-screen.png)
+
+### Smart Reading & Summarization
+View extracted content, generate AI-powered summaries, and listen to text using built-in text-to-speech.
+
+![Reading Mode](images/reading-screen.png)
+
+### Interactive Quiz Generation
+Automatically generate quizzes from the extracted content to reinforce understanding and improve retention.
+
+![Quiz Mode](images/quiz-screen.png)
+
+### Flashcards & Study Mode
+Convert extracted concepts into flashcards for active recall and spaced repetition learning.
+
+![Flashcards](images/flashcards-screen.png)
+
 ## 🏗️ Architecture
 
 ReadBuddy follows a modern three-tier architecture:
